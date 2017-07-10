@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Message from './Message';
 import NewMessageEntry from './NewMessageEntry';
 import axios from 'axios';
-import store, {gotMessagesFromServer} from '../store';
+import store, {gotMessagesFromServer, fetchMessages} from '../store';
 
 export default class MessagesList extends Component {
 
@@ -12,14 +12,9 @@ export default class MessagesList extends Component {
   }
 
   componentDidMount () {
-    axios.get('/api/messages')
-      .then(res => res.data)
-      .then(messages => {
-        const action = gotMessagesFromServer(messages);
-        store.dispatch(action);
-      });
-
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
+    const thunk = fetchMessages();
+    store.dispatch(thunk);
   }
 
   componentWillUnmount () {
@@ -27,7 +22,6 @@ export default class MessagesList extends Component {
   }
 
   render () {
-
     const channelId = Number(this.props.match.params.channelId); // because it's a string "1", not a number!
     const messages = this.state.messages;
     const filteredMessages = messages.filter(message => {
