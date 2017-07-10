@@ -16,19 +16,17 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-import store, { gotMessagesFromServer } from './store';
+// import store, { gotMessagesFromServer } from './store';
 
-console.log('-------------------------');
-console.log('State before any actions: ', store.getState());
+// const unsubscribe = store.subscribe(function () {
+//   console.log('----------------');
+//   console.log('State changed!!', store.getState());
+// });
 
-const gotMessagesAction = gotMessagesFromServer([{ author: 'Cody', content: 'Hello world!'}, { author: 'World', content: 'Oh, hey, Cody!' }]);
-store.dispatch(gotMessagesAction);
+// store.dispatch(gotMessagesFromServer([{ author: 'Milton', content: 'Hey @channel'}]));
+// store.dispatch(gotMessagesFromServer([{ author: 'Marcy', content: 'Anybody @here want ice cream?'}]));
 
-console.log('-------------------------');
-console.log('State after first GOT_MESSAGES_FROM_SERVER action: ', store.getState());
+// unsubscribe();
 
-const anotherMessagesAction = gotMessagesFromServer([{ author: 'Ben', content: 'I like JS. How about you, Fira?'}, { author: 'Fira', content: 'I like Python!' }]);
-store.dispatch(anotherMessagesAction);
+// store.dispatch(gotMessagesFromServer([{ author: 'Astro', content: 'To infinity and beyond!'}]));
 
-console.log('-------------------------');
-console.log('State after second GOT_MESSAGES_FROM_SERVER action: ', store.getState());
